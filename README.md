@@ -1,4 +1,4 @@
-# ProjectA 
+# ProjectArihant
 <h1>SpringMVC Fully JavaBased(Classbased) Web Project - Sample</h1>
 <p>Current Status - Developing</p>
 <p>This is a project of SpringWebMVC Technology, it's an example and solution of every kind of JavaBased(Classbased) SpringMVC problems.</p>
