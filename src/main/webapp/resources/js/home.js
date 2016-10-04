@@ -1,6 +1,7 @@
 $(document).ready(function(e){
-	var boolValidName;
-	var boolValidPhoto;
+	var boolValidName = false;
+	var boolValidPhoto = false;
+	var boolValidPassword = false;
 	
 	$("#user_logout").hide();
 	$("#user_photo").hide();
@@ -121,11 +122,20 @@ $(document).ready(function(e){
 			}
 		});
 	});
+	
+	$(".password").keyup(function(e){
+		boolValidPassword = false;
+		if($("#pass1").val() != $("#pass2").val() && $("#pass1").val().length == 0){
+			boolValidPassword = true;
+		}
+		alert("Password Success =>> "+$.trim($("#pass1").val()) == $.trim($("#pass2").val()));
+	});
+	
 	$("#submit").click(function(e){
-		if(boolValidName && boolValidPhoto){
+		if (boolValidName && boolValidPhoto){
 			var oMyForm = new FormData();
-			oMyForm.append("file", photoupload.files[0]);
-			
+			oMyForm.append("name",$("#name").val());
+			oMyForm.append("photo",photoupload.files[0])
 			$.ajax({
 				url:"submitRegForm",
 				data: oMyForm,
@@ -137,11 +147,11 @@ $(document).ready(function(e){
 					$("html").html("Form Uploaded Successfully...");
 				},
 				error: function(){
-					alert("Can't submitted");
+					alert("Error: Can't submitted...try again");
 				}
 			});
 		}else{
-			alert("Sorry can't Submit !!! Correct your form first...");
+			alert("Correct your form first...");
 		}
 	});
 });

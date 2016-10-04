@@ -10,7 +10,6 @@
 		<title>Home</title>
 	
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.1.0.js"/>"></script>
-	<script type="text/javascript" src="<c:url value="/resources/js/common.js"/>"></script>
     <link href="<c:url value="/resources/css/common.css"/>" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="<c:url value="/resources/js/home.js"/>"></script>
 	</head>
@@ -127,7 +126,7 @@
             		<form:label path="password">Password</form:label>
 				</td>
                 <td>
-                	<form:input path="password" type="password" id="password1"/>
+                	<form:input path="password" type="text" id="pass1" class="password"/>
                 </td>
             </tr>
             <tr>
@@ -135,13 +134,13 @@
             		Password Verify
 				</td>
                 <td>
-                	<input type="password" id="password2"/>
+                	<input type="text" id="pass2" class="password"/>
                 </td>
             </tr>
             <tr>
             	<td colspan="2" align="center">
                 	<input type="reset" value="Reset">
-                    <input id="submit" type="button" value="Register Now!">
+                    <input type="button" id="submit" value="Register Now!">
                 </td>
             </tr>
         </table>

@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sanyal.models.City;
@@ -93,16 +98,11 @@ public class RegistrationController{
 	        }
 		return  str;
 	}
-	@RequestMapping(value="/submitRegForm", method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	 public String submitRegForm(Model model,@RequestParam String username){
-		User u = userService.getUserList(username);
-		String  str;
-	        if(u==null){
-	        	str="false";
-	        }else
-	        {
-	        	str="true";
-	        }
-		return  str;
+	@RequestMapping(value="/submitRegForm", method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	 public String submitRegForm(Model model,MultipartHttpServletRequest request, HttpServletResponse response){
+		MultipartFile mpf = request.getFile("photo");
+		System.out.println("Photo :- "+mpf.getOriginalFilename());
+		System.out.println("Name :- "+request.getParameter("name"));
+		return  "hi";
 	}
 }
