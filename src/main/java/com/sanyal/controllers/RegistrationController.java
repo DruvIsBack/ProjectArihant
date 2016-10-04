@@ -1,10 +1,12 @@
 package com.sanyal.controllers;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -46,7 +48,10 @@ public class RegistrationController{
 	 @Autowired
 	 GenderService GenderService = new GenderService();
 	 @Autowired
-	 UserService userService = new UserService();
+	 private UserService userService ;
+	 
+	 @Autowired
+		private ServletContext context;
  
 	 @RequestMapping(value="/",method=RequestMethod.GET)
 	 public ModelAndView index(ModelMap model) throws FileNotFoundException, IOException, ParseException
@@ -101,8 +106,45 @@ public class RegistrationController{
 	@RequestMapping(value="/submitRegForm", method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	 public String submitRegForm(Model model,MultipartHttpServletRequest request, HttpServletResponse response){
 		MultipartFile mpf = request.getFile("photo");
+		String image=mpf.getOriginalFilename();
 		System.out.println("Photo :- "+mpf.getOriginalFilename());
 		System.out.println("Name :- "+request.getParameter("name"));
-		return  "hi";
+		
+	 User ob=new User();
+	 ob.setName(request.getParameter("name"));
+	 ob.setPhoto(image);
+	  uploadcv(mpf,request.getParameter("name"));
+	
+	  //this.userService.insert(ob);
+	
+	  return "redirect:/view";
+	//return "ViewStudentInfo_Jsp";		
+}
+
+public void uploadcv(MultipartFile ph,String username){
+	
+	String path=context.getRealPath("");
+	
+	System.out.println("path "+path);
+	 
+	String path1=path+"resources1"+File.separator+username;
+	
+	System.out.println("path1 "+path1);
+	
+	File f=new File(path1);		
+	if(!f.exists())
+	{
+		f.mkdirs();
 	}
+	File f1=new File(path1+File.separator+ph.getOriginalFilename());
+	try 
+	{
+		ph.transferTo(f1);
+	} 
+	catch (Exception e) 
+	{			
+		e.printStackTrace();
+	}
+}
+
 }

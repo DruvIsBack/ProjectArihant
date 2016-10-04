@@ -125,9 +125,10 @@ $(document).ready(function(e){
 	
 	$(".password").keyup(function(e){
 		boolValidPassword = false;
-		if($("#pass1").val() != $("#pass2").val() && $("#pass1").val().length == 0){
+		if($("#pass1").val() == $("#pass2").val() && $("#pass1").val().length == 0){
 			boolValidPassword = true;
 		}
+		alert(boolValidPassword);
 		alert("Password Success =>> "+$.trim($("#pass1").val()) == $.trim($("#pass2").val()));
 	});
 	
